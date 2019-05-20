@@ -1,0 +1,37 @@
+%rebase ('osnova.html', naslov='Seznam_oseb', navigator='/ Administrator/Osebe')
+    <div class="naslov_strani">
+       Izpis komitentov
+    </div>
+	<table class="w3-table">
+        <tr>
+          <th>
+		  <form action="/zbrisi_osebe" method="POST">
+	   <button class="w3-btn w3-red"> Zbrisi vse osebe </button>
+	   </form>
+	   </th>
+	   </table>
+	<div class="vrstica">
+      <table class="w3-table-all">
+        <tr class="w3-gray">
+          <th>ID</th>
+          <th>Ime</th>
+          <th>Priimek</th>
+		  <th>Mail</th>
+		  <th>Zaslužek</th>
+		  <th>Zbriši</th>
+        </tr>
+        %for id, ime, priimek, email, geslo in rezultat:
+		<form action="zapri_racun_adm" method="POST">
+		<input type="hidden" id="id" name="id" value = "{{id}}"/>
+        <tr>
+          <td><a href="/oseba/{{id}}">{{id}}</a></td>
+          <td>{{ime}}</td>
+          <td>{{priimek}}</td>
+          <td>{{email}}</td>
+		  <td>{{zasluzek[id]}}</td>
+		  <td><button class="w3-btn w3-red w3-round-xxlarge" style="font-size:16px"><i class="fa fa-trash"></i> Zbriši uporabnika </button> </td>
+        </tr>
+		</form>
+        %end
+      </table>
+    </div>

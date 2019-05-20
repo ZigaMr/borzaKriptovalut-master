@@ -1,0 +1,149 @@
+<ChartCanvas
+          ratio={1}
+          width={width / 2 - 10}
+          height={height}
+          margin={{ left: 5, right: 0, top: 5, bottom: 30 }}
+          seriesName="MSFT"
+          data={buyOrdersSorted}
+          type={type}
+          xAccessor={d => d.price}
+          panEvent={false}
+          seriesName={`MSFT_${this.state.suffix}`}
+          xExtents={xExtentsBuy}
+          zoomEvent={false}
+          xScale={scaleLinear()}
+        >
+          <Chart id={10} yExtents={yAxisRange} width={width / 2}>
+            <Gradient
+              id="buyGradient"
+              color1="#009900"
+              color2="#00b200"
+              color3="#00cc00"
+            />
+            <XAxis
+              axisAt="bottom"
+              orient="bottom"
+              tickStroke={axisColor}
+              ticks={5}
+              zoomEnabled={false}
+              tickStroke={linesColor}
+              stroke={linesColor}
+            />
+            <AreaSeries
+              yAccessor={d => d.type == "buy" && d.volume}
+              fill="url(#buyGradient)"
+              canvasGradient={buyGradient}
+              strokeWidth={2}
+              stroke={COLOR_PALETTE.depthBuyGreen}
+              interpolation={curveStep}
+            />
+            <YAxis
+              stroke="#000000"
+              axisAt="left"
+              orient="right"
+              tickStroke={axisColor}
+              ticks={5}
+              yZoomWidth={0}
+              tickStroke={linesColor}
+              stroke={linesColor}
+            />
+            <HoverTooltip
+              tooltipContent={tooltipContent(currency)}
+              bgFill={linesColor}
+              stroke={linesColor}
+              fill="#ffffff"
+              bgOpacity={1}
+              fontFill="#000000"
+              opacity={1}
+              fontFamily={"inherit"}
+            />
+            <CurrentCoordinate
+              yAccessor={d => d.volume}
+              fill={linesColor}
+              r={5}
+              onHover
+            />
+          </Chart>
+        </ChartCanvas>
+        <ChartCanvas
+          ratio={1}
+          width={width / 2 - 10}
+          height={height}
+          margin={{ left: 0, right: 5, top: 5, bottom: 30 }}
+          seriesName="MSFT"
+          data={sellOrdersSorted}
+          type={type}
+          xAccessor={d => d.price}
+          panEvent={false}
+          seriesName={`MSFT_${this.state.suffix}`}
+          xExtents={xExtentsSell}
+          zoomEvent={false}
+          xScale={scaleLinear()}
+        >
+          <Chart
+            id={11}
+            // yExtents={d => d.volume}
+            yExtents={yAxisRange}
+            width={width / 2}
+          >
+            <Gradient
+              id="sellGradient"
+              color1="#cc0000"
+              color2="#b20000"
+              color3="#990000"
+            />
+            <XAxis
+              axisAt="bottom"
+              orient="bottom"
+              tickStroke={axisColor}
+              ticks={5}
+              zoomEnabled={false}
+              tickStroke={linesColor}
+              stroke={linesColor}
+            />
+            {/* empty axis in the middle of depth chart */}
+            <YAxis
+              stroke="#000000"
+              axisAt="left"
+              orient="right"
+              tickStroke={axisColor}
+              ticks={0}
+              yZoomWidth={0}
+              tickStroke={linesColor}
+              stroke={linesColor}
+            />
+            <YAxis
+              axisAt="right"
+              orient="left"
+              tickStroke={axisColor}
+              ticks={5}
+              yZoomWidth={0}
+              tickStroke={linesColor}
+              stroke={linesColor}
+            />
+            <AreaSeries
+              yAccessor={d => d.type == "sell" && d.volume}
+              canvasGradient={sellGradient}
+              fill="url(#sellGradient)"
+              stroke={COLOR_PALETTE.depthSellRed}
+              strokeWidth={2}
+              interpolation={curveStep}
+            />
+            <HoverTooltip
+              tooltipContent={tooltipContent(currency)}
+              bgFill={linesColor}
+              stroke={linesColor}
+              fill="#ffffff"
+              bgOpacity={1}
+              fontFill="#000000"
+              opacity={1}
+              fontFamily={"inherit"}
+            />
+            <CurrentCoordinate
+              yAccessor={d => d.volume}
+              fill={linesColor}
+              r={5}
+              onHover
+            />
+          </Chart>
+        </ChartCanvas>

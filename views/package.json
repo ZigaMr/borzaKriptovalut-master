@@ -1,0 +1,37 @@
+{
+  "name": "@melonproject/orderbook-visualisation",
+  "description": "Simple order book (or depth of market) visualisation with d3",
+  "version": "0.0.4",
+  "scripts": {
+    "start": "browser-sync start -s . -f ."
+  },
+  "main": "script.js",
+  "repository": {
+    "type": "git",
+    "url": "git@gist.github.com:e871a7c5372812f09978f2704bab10c4.git"
+  },
+  "keywords": [
+    "melonport",
+    "melonproject",
+    "orderbook",
+    "visualisation",
+    "block",
+    "d3",
+    "depth-of-market"
+  ],
+  "author": "Simon Emanuel Schmid <simon@schmid.io>",
+  "license": "GPL-3.0",
+  "homepage": "https://bl.ocks.org/schmidsi/e871a7c5372812f09978f2704bab10c4",
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "env": {
+      "browser": true
+    }
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.11",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.2.0"
+  }
+}

@@ -1,0 +1,181 @@
+%rebase('osnova.html', naslov='Oseba', navigator='/ Oseba')
+<style>
+	.negative { color : red; }
+	.positive { color : green; }
+</style>
+
+<div class="navbar">
+  <div class="dropdown">
+    <button class="dropbtn">Račun
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <center>{{ime}} &nbsp {{priimek}}</center>
+	  <a href="/oseba/{{id}}/zgodovina">Zgodovina transakcij</a>
+	  <a href="/oseba/{{id}}/spremeni">Spremeni podatke</a>
+      <a href="/odjavi">Odjava</a>
+	  <a href="/zapri_racun">Zapri račun</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">API
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="https://api.coinmarketcap.com/v1/ticker/">CoinMarket</a>
+	  <a href="https://www.bitstamp.net/api/ticker_hour/">Bitstamp</a>
+	  <a href="https://bittrex.com/api/v1.1/public/getcurrencies">Bitrex</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn">Zaslužek
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <!--<ul id="zasluzek"> {{zasluzek}}</ul>-->
+	  %for item in zasluzek[0]:
+			<h1 style="color:green;"> {{item[0]+ " " + str(item[1])}} </h1>
+	  %end
+	  %for item in zasluzek[1]:
+			<h1 style="color:red;"> {{item[0]+ " " + str(item[1])}} </h1>
+	  %end
+
+    </div>
+  </div>
+    <div class="dropdown">
+    <button class="dropbtn">Vrednost valut
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <ul id="vrednost"> {{vsota}}</ul>
+    </div>
+  </div>
+
+	<button id="myBtn" class="w3-button w3-hover-orange" style="font-size:16px; color:white;">Kupi kriptovalute <i class="fa fa-cart-plus"></i></button>
+
+
+</div>
+
+	<div class="w3-container"  onload="clean()">
+	<input class="w3-input w3-border-0 w3-padding" type="text" placeholder="Išči kriptovaluto" id="myInput" onkeyup="myFunction('myInput', 'myTable')">
+
+	 <table class="w3-table-all" id="myTable">
+			<tr class="w3-gray">
+			  <th>Valuta</th>
+			  <th>Vrednost</th>
+			  <th>Trenutna vrednost</th>
+			  <th>Količina</th>
+			  <th>Datum</th>
+			  <th>Prodam</th>
+			  <th>&nbsp;</th>
+			</tr>
+			%for k, valut, vred, vredn, kol, dat in lastnistvo:
+			<form action="/prodaj" method="POST">
+			<input type="hidden" id="id" name="id" value = "{{id}}"/>
+			<tr>
+				<td><input type="hidden" id="valut" name="valut" value = "{{k}}"/>{{valut}}</td>
+				<td><input type="hidden" id="vred" name="vred" value = "{{vred}}"/>{{vred}}</td>
+				<td><input type="hidden" id="vredn" name="vredn" value = "{{vredn}}"/>{{vredn}}</td>
+				<td><input type="hidden" id="kol" name="kol" value = "{{kol}}"/>{{kol}}</td>
+				<td><input type="hidden" id="dat" name="dat" value = "{{dat}}"/>{{dat}}</td>
+				<td>
+				<input class="w3-input w3-border-0" type="text" id="kolicina" name="kolicina" value = "{{kolicina}}" placeholder="koliko" size="5" />
+			    </td>
+			   <td>
+				 <!--<input type="submit" id="prodaj" value="prodaj" name="prodaj" class="gumbi"> -->
+				 <button class="w3-button w3-hover-black" style="font-size:16px">Prodaj <i class="fa fa-btc"></i></button>
+			    </td>
+			</form>
+			%end
+			</tr>
+	 </table>
+	 <div>
+	 <select id="selector" onchange="grafi()">
+	 <option selected>Izberi valuto</option>
+	 %for k, ime, spletna, vrednost, evri, cas in valute:
+	 <option id = {{k}} name={{k}} value={{k}} onclick="e=id">{{ime}}</option>
+	 %end
+	 </select>
+	 </div>
+	 <div id="widget" style="width: 350px; min-height: 370px;"></div>
+	 </div>
+
+	 <!---->
+
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+
+
+  <!-- Modal content -->
+	<div class="modal-content">
+		<div class="modal-header">
+		  <span class="close"><i class="fa fa-window-close-o"  style="font-size:20px;color:white"></i></span>
+		  <h3>Izberi valuto</h3>
+		</div>
+		<div class="modal-body">
+		  <p>Kriptovalute</p>
+
+		<input class="w3-input w3-padding w3-border-0" type="text" placeholder="Išči kriptovaluto" id="myInput1" onkeyup="myFunction('myInput1', 'myTable1')">
+		  <div class="w3-container">
+		  <table class="w3-table-all" id="myTable1">
+			<tr>
+			  <th>Valuta</th>
+			  <th>Vrednost $</th>
+			  <th>Vrednost €</th>
+			  <th>Količina</th>
+			  <th>&nbsp;</th>
+			  <th>&nbsp;</th>
+			</tr>
+			%for k, ime, spletna, vrednost, evri, cas in valute:
+			<form action="/kupi" method="POST">
+			<input type="hidden" id="id" name="id" value = "{{id}}"/>
+			<input type="hidden" id="k" name="k" value = "{{k}}"/>
+			<tr>
+			  <td><input type="hidden" id="ime" name="ime" value = "{{ime}}"/>{{ime}}</td>
+			  <td><input type="hidden" id="vrednost" name="vrednost" value = "{{vrednost}}"/>{{vrednost}}</td>
+			  <td><input type="hidden" id="evri" name="evri" value = "{{evri}}"/>{{evri}}</td>
+			  <td>
+				<input class="w3-input w3-border-0" type="text" id="kolicina" name="kolicina" value = "{{kolicina}}" placeholder="koliko" size="5" />
+			  </td>
+			   <td>
+
+				   <!--<input type="submit" id="kupi" value="Kupi" name="kupi" class="gumbi">-->
+				   <button class="w3-button w3-hover-black" style="font-size:16px">Kupi <i class="fa fa-btc"></i></button>
+
+			</td>
+			</tr>
+			</form>
+			%end
+		  </table>
+		</div>
+		</div>
+		<div class="modal-footer">
+		  <p><i class="fa fa-copyright"></i></p>
+		</div>
+	  </div>
+
+	  <link href="/static/kriptovalute.css" rel="stylesheet">
+	  <script src="/static/kriptovalute.js"></script>
+
+    </div>
+
+<script type="text/javascript">
+
+function grafi(){
+document.getElementById("widget").innerHTML = "";
+baseUrl = "https://widgets.cryptocompare.com/";
+var embedder = document.getElementById("widget");
+var appName = "local"; 
+var e = document.getElementById("selector");
+var strUser = e.options[e.selectedIndex].value;
+var s = document.createElement("script");
+s.type = "text/javascript";
+s.async = true;
+var theUrl = baseUrl+'serve/v1/coin/chart?fsym='+strUser+'&tsym=USD';
+s.src = theUrl + ( theUrl.indexOf("?") >= 0 ? "&" : "?") + "app=" + appName;
+embedder.appendChild(s);
+};
+</script>
+
+

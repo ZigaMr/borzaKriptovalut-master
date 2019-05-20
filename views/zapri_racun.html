@@ -1,0 +1,43 @@
+%rebase ('osnova.html', naslov='zapri_račun', navigator='/zapri_račun')
+	<div class="w3-panel w3-red w3-display-container">
+		<h3>Zaprli boste račun, vsi podatki bodo trajno izgubljeni!</h3>
+	</div>
+    <div class="vrstica">
+      <form method="post" action="/zapri_racun">
+		  <table>
+				<tr>
+					<td class="glava">
+					  Mail
+					</td>
+					<td>
+					  <input class="w3-input w3-padding" type="text" name="mail" value="{{mail}}" placeholder = "Vnesi email"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="glava">
+					  Geslo
+					</td>
+					<td>
+					  <input class="w3-input w3-padding" type="password" name="geslo" value="{{geslo}}" placeholder = "Vnesi geslo"/>
+					</td>
+				</tr>
+				<tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td class="gumb_dodaj">
+                  <input class="w3-btn w3-red w3-round-xxlarge" type="submit" value="Zapri račun" name="zapri"/>
+                </td>
+            </tr>
+        </table>
+      </form>
+    </div>
+    %if napaka is not None:
+    	<div class="w3-panel w3-red w3-display-container">
+  <span onclick="this.parentElement.style.display='none'"
+  class="w3-button w3-red w3-large w3-display-topright">&times;</span>
+  <p>Napaka: {{napaka}}</p>
+</div>
+
+    %end
+	

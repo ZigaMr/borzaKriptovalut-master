@@ -1,0 +1,31 @@
+%rebase ('osnova.html', naslov='Iskanje', navigator='/ Iskanje')
+    <div class="naslov_strani">
+       Izpis komitentov
+    </div>
+	
+	<div class="vrstica">
+      <span class="napis">Išči osebo:</span>
+      <form method="get" action="/isci">
+            <input type="text" name="iskalniNiz"/>
+            <input type="submit" value="Išči" name="isci" class="gumbi"/>
+      </form>
+    </div>
+
+    <div class="vrstica">
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <th>ID</th>
+          <th>Ime</th>
+          <th>Priimek</th>
+        </tr>
+        %for id, ime, priimek, email, geslo in rezultat:
+        <tr>
+          <td><a href="/oseba/{{id}}">{{id}}</a></td>
+          <td>{{ime}}</td>
+          <td>{{priimek}}</td>
+          <td>{{email}}</td>
+          <td>{{geslo}}</td>
+        </tr>
+        %end
+      </table>
+    </div>

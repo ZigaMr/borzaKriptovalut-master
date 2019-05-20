@@ -1,0 +1,54 @@
+%rebase ('osnova.html', naslov='Valute', navigator='/ Valute')
+    <div class="naslov_strani">
+	
+	   <table class="w3-table">
+        <tr>
+          <th>
+		  <form action="/dodaj_valute" method="POST">
+	   <button class="w3-btn w3-green"> Posodobi seznam valut </button>
+	   </form>
+	   </th>
+          <th>
+		  <form action="/dodaj_nove_valute" method="POST">
+	   <button class="w3-btn w3-green"> Dodaj nove valute (ne odstrani starih) </button>
+	   </form>
+	   </th>
+	   <th>
+		  <form action="/odstrani_valute" method="POST">
+	   <button class="w3-btn w3-red"> Odstrani vse valute </button>
+	   </form>
+	   </th>
+	   </tr>
+	   </table>
+	   Izpis valut
+    </div>
+	<div class="vrstica">
+	<input class="w3-input w3-padding w3-border-0" type="text" placeholder="Išči kriptovaluto" id="myInput1" onkeyup="myFunction('myInput1', 'myTable1')">
+		  <div class="w3-container">
+      <table id="myTable1">
+        <tr>
+          <th>Kratica</th>
+          <th>Ime</th>
+		  <th>Vrednost $</th>
+		  <th>Vrednost €</th>
+		  <th>Čas</th>
+		  <th></th>
+        </tr>
+        %for kratica, ime, spletna, vrednost, evri, cas in rezultat:
+        <tr>
+		<form action="/administrator/zbrisi_valute" method="POST">
+		<input type="hidden" id="{{kratica}}" name="id" value = "{{kratica}}"/>
+          <td><a href ="{{spletna}}">{{kratica}}</a></td>
+          <td>{{ime}}</td>
+		  <td>{{vrednost}}</td>
+		  <td>{{evri}}</td>
+		  <td>{{cas}}</td>
+		  <td>
+		  <button class="w3-btn w3-red"> Zbrisi valuto </button>
+		  </td>
+		  </form>
+        </tr>
+        %end
+      </table>
+    </div>
+	<script src="/static/kriptovalute.js"></script>

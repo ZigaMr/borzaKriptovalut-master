@@ -1,0 +1,40 @@
+%rebase ('osnova.html', naslov='Prijava', navigator='/prijava')
+    <div class="vrstica">
+      <form method="post" action="/prijava">
+		<table>
+			<tr>
+				<td class="glava">
+					Mail
+				</td>
+				<td>
+					<input class="w3-input w3-padding" type="text" name="mail" value="{{mail}}" placeholder = "Vnesi mail"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="glava">
+					Geslo
+				</td>
+				<td>
+					<input class="w3-input w3-padding" type="password" name="geslo" value="{{geslo}}" placeholder = "Vnesi geslo"/><br />
+				</td>
+			</tr>
+			<tr>
+				<td>
+                    &nbsp;
+                </td>
+                <td class="gumbi">
+                  <input class="w3-btn w3-green w3-round-xxlarge" type="submit" value="Prijava" name="prijava">
+                </td>
+            </tr>
+        </table>
+      </form>
+    </div>
+    %if napaka_prijava is not None:
+
+	
+	<div class="w3-panel w3-red w3-display-container">
+  <span onclick="this.parentElement.style.display='none'"
+  class="w3-button w3-red w3-large w3-display-topright">&times;</span>
+  <p>Napaka: {{napaka_prijava}}</p>
+</div>
+    %end
